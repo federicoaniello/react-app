@@ -1,50 +1,54 @@
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Modal.module.scss';
 import closeImg from '/svg/close.svg';
-import { resetData } from '../../../store/modal/modal-store';
+import { resetData } from '../../../store/modal/slice';
+
 const Modal = () => {
-    const modalData = useSelector((state) => state.data.value)
-    const dispatch = useDispatch();
+  const modalData = useSelector((state) => state.modalSlice.modalData );
+  const dispatch = useDispatch();
 
-    const close = (event) => {
-        if (event.target.closest(".modal-body")) return;
-        dispatch(resetData())
-      };
+  const close = useCallback((event) => {
+    if (event.target.closest('.modal-body')) return;
+    dispatch(resetData());
+  }, [dispatch]);
 
-    return(
-        <div v-if="getModalData" className={styles['modal-backdrop']} onClick={close}>
-            <div v-if="getModalData" className={styles.modal}>
-              <header id="modalheader">
-                <img src={closeImg} />
-              </header>
-              <section className="modal-body" id="modalDescription" onClick={close}>
-                <div className="img">
-                  <img
-                    src={getModalData['image-preview']}
-                    alt={getModalData.name}
-                  />
-                </div>
-                <div className="info">
-                  <h1>{ getModalData.name }</h1>
-                  <h3 className="mb-5">{ getModalData.description }</h3>
-                  <div className="prices">
-                    <span v-if="getModalData['old-price']" class="old-price">{ getModalData["old-price"] }</span>
-                    <div
-                      className="mb-5 d-flex justify-content-start align-items-center"
-                    >
-                      <span className="actual-price">{ getModalData.price }</span>
-                      <span v-if="getModalData.discount" className="discount">{
-                        getModalData.discount
-                      }</span>
-                    </div>
-                  </div>
-                  <a className='anchor' href={getModalData.link} target="_blank"
-                    ><button className="add-to-cart">Add To Cart</button></a>
-                </div>
-              </section>
+  const renderContent = () => {
+    if (!modalData) return null;
+
+    const { name, description, 'image-preview': imagePreview, link, price, discount, 'old-price': oldPrice } = modalData;
+
+    return (
+      <div className={styles['modal-backdrop']} onClick={close}>
+        <div className={styles.modal}>
+          <header id="modalheader" className={styles.modalHeader}>
+            <img src={closeImg} alt="Close" />
+          </header>
+          <section className="modal-body" id="modalDescription" onClick={close}>
+            <div className="img">
+              <img src={imagePreview} alt={name} />
             </div>
+            <div className="info">
+              <h1>{name}</h1>
+              <h3 className="mb-5">{description}</h3>
+              <div className="prices">
+                {oldPrice && <span className={styles['old-price']}>{oldPrice}</span>}
+                <div className="mb-5 d-flex justify-content-start align-items-center">
+                  <span className="actual-price">{price}</span>
+                  {discount && <span className="discount">{discount}</span>}
+                </div>
+              </div>
+              <a className="anchor" href={link} target="_blank" rel="noopener noreferrer">
+                <button className="add-to-cart">Add To Cart</button>
+              </a>
+            </div>
+          </section>
         </div>
-    )
-}
+      </div>
+    );
+  };
+
+  return <>{renderContent()}</>;
+};
 
 export default Modal;

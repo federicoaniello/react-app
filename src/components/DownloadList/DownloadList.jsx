@@ -13,11 +13,11 @@ export default function DownloadList({ api, selectedColor, onColorsGathered }) {
       setJsonData(json);
       const gatheredColors = colorUtility(json);
       setColors(gatheredColors);
-      onColorsGathered(gatheredColors);
+      onColorsGathered(gatheredColors,selectedColor,onColorsGathered,api);
     };
 
     fetchData();
-  }, [api, onColorsGathered]);
+  }, [api,selectedColor]);
 
   return (
     <>

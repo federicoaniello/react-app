@@ -8,7 +8,7 @@ export const useDownload = () => {
   
     const colorUtility = (jsonData) => {
       let colors = [];
-      jsonData.value.forEach(({ color }) => {
+      jsonData.forEach(({ color }) => {
         colors.push(...color);
       });
       colors = [...new Set(colors)];

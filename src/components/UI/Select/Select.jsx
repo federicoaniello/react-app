@@ -1,6 +1,6 @@
 import { forwardRef, useCallback } from "react"
 
-export default forwardRef(function Select ({colors,onChange},ref){
+const Select = forwardRef(function Select ({colors,onChange},ref){
 
 
     const toCapitalized = useCallback(string => {
@@ -12,11 +12,7 @@ export default forwardRef(function Select ({colors,onChange},ref){
 
 
 return(
-    <select
-    ref={ref}
-    value=""
-    onChange={onChange}
-  >
+    <select ref={ref} onChange={onChange}>
     <option value="">Filter by color</option>
     {colors.map((color, index) => (
       <option key={index} value={color}>
@@ -27,4 +23,6 @@ return(
 )
 
 })
+
+export default Select;
 

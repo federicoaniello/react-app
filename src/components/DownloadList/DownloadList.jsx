@@ -2,10 +2,9 @@ import ProductList from "../ProductList/ProductList";
 import useDownload from "../../hooks/useDownload";
 import { useEffect, useState } from "react";
 
-export default function DownloadList({ api, selectedColor, onColorsGathered }) {
+export default function DownloadList({ api, selectedColor, setColors }) {
   const { download, colorUtility } = useDownload();
   const [jsonData, setJsonData] = useState(null);
-  const [colors, setColors] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +12,6 @@ export default function DownloadList({ api, selectedColor, onColorsGathered }) {
       setJsonData(json);
       const gatheredColors = colorUtility(json);
       setColors(gatheredColors);
-      onColorsGathered(gatheredColors,selectedColor,onColorsGathered,api);
     };
 
     fetchData();

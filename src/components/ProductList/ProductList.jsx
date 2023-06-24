@@ -1,18 +1,13 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Product from "../Product/Product";
 import styles from "./ProductList.module.scss";
 
 const ProductList = ({ products, selectedColor }) => {
   const [truncateValue, setTruncateValue] = useState(4);
+  const moreToShow = useMemo(() => products?.length > truncateValue,[truncateValue,products])
 
-  const moreToShow = useMemo(() => products.length > truncateValue, [
-    products.length,
-    truncateValue,
-  ]);
+  const showMore = useCallback(() => setTruncateValue((prevValue) => prevValue + 4),[]);
 
-  const showMore = useCallback(() => {
-    setTruncateValue((prevValue) => prevValue + 4);
-  }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = products;
@@ -28,7 +23,7 @@ const ProductList = ({ products, selectedColor }) => {
         {filteredProducts.map((item, index) => (
           <Product key={index} item={item} />
         ))}
-        {products.length === 0 && <div style={{ paddingBottom: '500px' }}></div>}
+        {products?.length === 0 && <div style={{ paddingBottom: '500px' }}></div>}
       </section>
       {(moreToShow || filteredProducts.length > 4) && (
         <div className="text-center mb-5">

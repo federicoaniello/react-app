@@ -3,21 +3,21 @@ import DownloadList from "../DownloadList/DownloadList";
 import useDownload from "../../hooks/useDownload";
 import { links_data } from "../Carousel/data";
 import styles from "./Catalogue.module.scss";
+import Select from "../UI/Select/Select";
 
 const Catalogue = () => {
-  const select_color = useRef(null);
   const [api, setApi] = useState("");
   const [colors, setColors] = useState([]);
-  const { toCapitalized } = useDownload();
-
-  const onChange = (event) => {
-    select_color.current.value = event.target.value;
-  };
-
+  const selectedColorRef = useRef(null);
+  const [selectedColor,setSelectedColor] = useState("");
   const onColorsReceived = (cl) => {
     setColors(cl);
-    select_color.current.value = "";
+    selectedColorRef.current.value = "";
   };
+
+  const onSelectedColor = () => {
+    setSelectedColor(selectedColorRef.current.value)  
+  }
 
   useEffect(() => {
     const default_api = links_data.find((tab) => tab.isDefault === true).api;
@@ -40,22 +40,12 @@ const Catalogue = () => {
               </a>
             ))}
           </div>
-          <select
-            ref={select_color}
-            value=""
-            onChange={onChange}
-          >
-            <option value="">Filter by color</option>
-            {colors.map((color, index) => (
-              <option key={index} value={color}>
-                {toCapitalized(color)}
-              </option>
-            ))}
-          </select>
+          <Select colors={colors} onChange={onSelectedColor} ref={selectedColorRef} />
+          
         </div>
         <DownloadList
           api={api}
-          selectedColor={select_color.current ? select_color.current.value : ""}
+          selectedColor={selectedColor}
           onColorsGathered={onColorsReceived}
         />
       </div>

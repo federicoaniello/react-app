@@ -13,6 +13,12 @@ const Catalogue = () => {
     setSelectedColor(event.target.value)  
   }
 
+  const handleListChange = (link) => {
+    const {api} = link;
+    setApi(api);
+    setSelectedColor(prev => "");  
+  }
+
   useEffect(() => {
     const API = links_data.find((tab) => tab.isDefault === true).api;
     setApi(API);
@@ -27,14 +33,14 @@ const Catalogue = () => {
             {links_data.map((link) => (
               <a
                 key={link.name}
-                className={api === link.api ? `${styles["router-link-active"]}` : undefined}
-                onClick={() => {setApi(link.api)}}
+                className={api === link.api ? `${styles["router-link-active"]}` : null}
+                onClick={() => {handleListChange(link)}}
               >
                 {link.name}
               </a>
             ))}
           </div>
-          <Select colors={colors} onChange={(e) => onSelectedColor(e)} />
+          <Select colors={colors} selectedColor={selectedColor} onChange={(e) => onSelectedColor(e)} />
           
         </div>
         <DownloadList

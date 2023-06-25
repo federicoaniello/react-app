@@ -15,7 +15,7 @@ export default function DownloadList({ api, selectedColor, setColors }) {
     };
 
     fetchData();
-  }, [api,selectedColor]);
+  }, [api]);
 
   return (
     <>

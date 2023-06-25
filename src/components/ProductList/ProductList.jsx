@@ -4,12 +4,12 @@ import styles from "./ProductList.module.scss";
 
 const ProductList = ({ products, selectedColor }) => {
   const [truncateValue, setTruncateValue] = useState(4);
-  const moreToShow = useMemo(() => products?.length > truncateValue,[truncateValue,products])
+  const moreToShow = products?.length > truncateValue;
 
-  const showMore = useCallback(() => setTruncateValue((prevValue) => prevValue + 4),[]);
+  const showMore = () => setTruncateValue((prevValue) => prevValue + 4);
 
 
-  const filteredProducts = useMemo(() => {
+  let filteredProducts = useMemo(() => {
     let filtered = products;
     if (selectedColor !== null && selectedColor !== "") {
       filtered = filtered.filter((el) => el.color.includes(selectedColor));

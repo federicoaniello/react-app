@@ -1,21 +1,25 @@
 import ProductList from "../ProductList/ProductList";
-import useDownload from "../../hooks/useDownload";
+import utilities from "../../hooks/utilities";
 import { useEffect, useState } from "react";
 
 export default function DownloadList({ api, selectedColor, setColors }) {
-  const { download, colorUtility } = useDownload();
+  const { download, colorUtility } = utilities();
   const [jsonData, setJsonData] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const json = await download(api);
-      setJsonData(json);
-      const gatheredColors = colorUtility(json);
-      setColors(gatheredColors);
-    };
+useEffect(() => {
+  download(api).then(res => {
 
-    fetchData();
-  }, [api]);
+    setJsonData(res);
+    const gatheredColors = colorUtility(res);
+    setColors(gatheredColors);
+  })
+
+  return () => {
+    setJsonData(null);
+  }
+}, [api])
+
+  
 
   return (
     <>

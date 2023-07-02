@@ -29,12 +29,12 @@ const ProductList = ({ products, selectedColor }) => {
         <div className="text-center mb-5">
           <button
             disabled={!moreToShow}
-            className={`mt-5 show-more d-flex align-items-center justify-content-between ${!moreToShow ? styles.rotate + ' upside-down' : ''}`}
+            className={`mt-5 ${styles["show-more"]} d-flex align-items-center justify-content-between`}
             onClick={showMore}
           >
             {moreToShow ? "View more" : "No more products to see"}
             <img
-              className={styles.rotate}
+              className={`${styles.rotate} ${!moreToShow ? styles.to180 : ""}`}
               src="/svg/right-arrow.svg"
               alt="Right arrow"
             />

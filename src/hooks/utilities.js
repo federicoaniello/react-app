@@ -1,4 +1,4 @@
-export const useDownload = () => {
+export const utilities = () => {
     const download = async (link) => {
       const res = await fetch(link);
       if (!res.ok) return;
@@ -32,5 +32,5 @@ export const useDownload = () => {
     };
   };
   
-  export default useDownload;
+  export default utilities;
   

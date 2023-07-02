@@ -24,22 +24,22 @@ const Modal = () => {
           <header id="modalheader" className={styles.modalHeader}>
             <img src={closeImg} alt="Close" />
           </header>
-          <section className="modal-body" id="modalDescription" onClick={close}>
-            <div className="img">
+          <section className={styles["modal-body"]} id="modalDescription" onClick={close}>
+            <div className={styles.img}>
               <img src={imagePreview} alt={name} />
             </div>
-            <div className="info">
+            <div className={styles.info}>
               <h1>{name}</h1>
               <h3 className="mb-5">{description}</h3>
-              <div className="prices">
+              <div className={styles.prices}>
                 {oldPrice && <span className={styles['old-price']}>{oldPrice}</span>}
                 <div className="mb-5 d-flex justify-content-start align-items-center">
-                  <span className="actual-price">{price}</span>
-                  {discount && <span className="discount">{discount}</span>}
+                  <span className={styles["actual-price"]}>{price}</span>
+                  {discount && <span className={styles.discount}>{discount}</span>}
                 </div>
               </div>
-              <a className="anchor" href={link} target="_blank" rel="noopener noreferrer">
-                <button className="add-to-cart">Add To Cart</button>
+              <a className={styles.anchor} href={link} target="_blank" rel="noopener noreferrer">
+                <button className={styles["add-to-cart"]}>Add To Cart</button>
               </a>
             </div>
           </section>

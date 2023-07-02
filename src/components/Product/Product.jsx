@@ -11,7 +11,7 @@ const Product = ({ item }) => {
       <div className={styles["product--img"]}>
         <div
           className={`${styles["additional-info"]} ${
-            !item?.discount ? styles["justify-content-end"] : ""
+            !item?.discount ? "justify-content-end" : ""
           }`}
         >
           {item?.discount && <span>{item?.discount}</span>}
@@ -19,7 +19,7 @@ const Product = ({ item }) => {
         </div>
         <img src={item?.["image-thumb"]} alt="" />
         <svg
-          className="eye"
+          className={styles.eye}
           fill="white"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"

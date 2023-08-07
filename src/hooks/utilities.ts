@@ -1,5 +1,7 @@
+import { IProduct } from "../model/IProduct";
+
 export const utilities = () => {
-  const download = async (link) => {
+  const download = async (link: string) => {
     try {
       const res = await fetch(link);
       if (!res.ok) throw new Error(`Fetch error: ${res.statusText}`);
@@ -10,17 +12,14 @@ export const utilities = () => {
     }
   };
 
-  const colorUtility = (jsonData) => {
-    const colors = jsonData.reduce((acc, item) => [...acc, ...item.color], []);
-    return [...new Set(colors)];
+  const colorUtility = (jsonData: IProduct[]): string[] => {
+    if (!jsonData) return [];
+    const colors = jsonData.map((item) => item.color).flat();
+    return [...new Set(colors)] as string[];
   };
 
-  /**
-   * Transforms a string to capitalized form (initial letter in uppercase)
-   * @param {string} string
-   * @returns string
-   */
-  const toCapitalized = (string) => {
+  
+  const toCapitalized = (string: string): string => {
     if (typeof string !== 'string') return '';
     return `${string[0].toUpperCase()}${string.substring(1)}`;
   };

@@ -7,7 +7,7 @@ import { ILinksData } from "../../model/ILinksData";
 import React from "react";
 
 
-const Catalogue = () => {
+const Catalogue = (): JSX.Element => {
   const [api, setApi] = useState<string>("");
   const [colors, setColors] = useState<string[]>([]);
   const [selectedColor, setSelectedColor] = useState<string>("");

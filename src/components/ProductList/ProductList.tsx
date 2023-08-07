@@ -2,14 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Product from "../Product/Product";
 import styles from "./ProductList.module.scss";
 import React from "react";
+import { IProduct } from "../../model/IProduct";
 
-interface ProductItem {
-  color: string[];
-  // Add other properties of the product here
-}
 
 interface ProductListProps {
-  products: ProductItem[];
+  products: IProduct[];
   selectedColor: string;
 }
 
@@ -23,7 +20,7 @@ const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element
   const filteredProducts = useMemo(() => {
     let filtered = products;
     if (selectedColor !== null && selectedColor !== "") {
-      filtered = filtered.filter((el) => el.color.includes(selectedColor));
+      filtered = filtered.filter((el) => el?.color?.includes(selectedColor));
     }
     return filtered.slice(0, truncateValue);
   }, [products, truncateValue, selectedColor]);

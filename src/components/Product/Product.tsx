@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import styles from "./Product.module.scss";
 import { setData } from "../../store/modal/slice";
 import PropTypes from "prop-types";
+import React from "react";
 
 const Product = ({ item }) => {
   const dispatch = useDispatch();

@@ -1,15 +1,26 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Product from "../Product/Product";
 import styles from "./ProductList.module.scss";
+import React from "react";
 
-const ProductList = ({ products, selectedColor }) => {
+interface ProductItem {
+  color: string[];
+  // Add other properties of the product here
+}
+
+interface ProductListProps {
+  products: ProductItem[];
+  selectedColor: string;
+}
+
+
+const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element => {
   const [truncateValue, setTruncateValue] = useState(4);
-  const moreToShow = products?.length > truncateValue;
 
+  const moreToShow = products?.length > truncateValue;
   const showMore = () => setTruncateValue((prevValue) => prevValue + 4);
 
-
-  let filteredProducts = useMemo(() => {
+  const filteredProducts = useMemo(() => {
     let filtered = products;
     if (selectedColor !== null && selectedColor !== "") {
       filtered = filtered.filter((el) => el.color.includes(selectedColor));
@@ -18,14 +29,15 @@ const ProductList = ({ products, selectedColor }) => {
   }, [products, truncateValue, selectedColor]);
 
   return (
-    products && (<>
-      <section className={styles.grid}>
-        {filteredProducts.map((item, index) => (
-          <Product key={index} item={item} />
-        ))}
-        {products?.length === 0 && <div style={{ paddingBottom: '500px' }}></div>}
-      </section>
-      {(moreToShow || filteredProducts.length > 4) && (
+    products && (
+      <>
+        <section className={styles.grid}>
+          {filteredProducts.map((item, index) => (
+            <Product key={index} item={item} />
+          ))}
+          {filteredProducts.length === 0 && <div style={{ paddingBottom: "500px" }}></div>}
+        </section>
+        {(moreToShow || filteredProducts.length > 4) && (
         <div className="text-center mb-5">
           <button
             disabled={!moreToShow}
@@ -41,7 +53,8 @@ const ProductList = ({ products, selectedColor }) => {
           </button>
         </div>
       )}
-    </>)
+      </>
+    )
   );
 };
 

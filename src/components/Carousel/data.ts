@@ -1,4 +1,7 @@
-export const swiper_data = [
+import { ILinksData } from "../../model/ILinksData";
+import { ISwiperData } from "../../model/ISwiperData";
+
+export const swiper_data: ISwiperData[] = [
     {
       img: "./carousel/carousel-01.jpg",
       titles: {
@@ -14,7 +17,7 @@ export const swiper_data = [
     },
   ];
   
-  export const links_data = [
+  export const links_data : ILinksData[] = [
     {
       name: "New Arrivals",
       api: "/data/new_arrivals.json",

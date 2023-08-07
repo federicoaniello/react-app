@@ -7,4 +7,5 @@ export type IProduct = {
     link:string,
     ["old-price"]?:string,
     ["image-thumb"]:string,
+    ["image-preview"]?:string,
 };

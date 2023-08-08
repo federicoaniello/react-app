@@ -1,6 +1,6 @@
 import { IProduct } from "../model/IProduct";
 
-export const utilities = () => {
+  const utilities = () => {
   const download = async (link: string) => {
     try {
       const res = await fetch(link);

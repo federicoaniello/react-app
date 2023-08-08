@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./Header.module.scss";
 import logo from "/images/logo_archiproducts.png";
 

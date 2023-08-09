@@ -1,10 +1,12 @@
 import { useDispatch } from "react-redux";
 import styles from "./Product.module.scss";
 import { setData } from "../../store/modal/slice";
-import PropTypes from "prop-types";
-import React from "react";
+import { IProduct } from "../../model/IProduct";
 
-const Product = ({ item }) => {
+type Props = {
+  item: IProduct
+}
+const Product = ({ item }: Props) => {
   const dispatch = useDispatch();
 
   return (
@@ -48,10 +50,6 @@ const Product = ({ item }) => {
       </div>
     </div>
   );
-};
-
-Product.propTypes = {
-  item: PropTypes.object,
 };
 
 export default Product;

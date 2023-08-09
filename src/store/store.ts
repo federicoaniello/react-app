@@ -9,5 +9,5 @@ export default configureStore({
 
 
 export interface RootState {
-  modalSlice: ModalState;
+  modal: ModalState;
 }

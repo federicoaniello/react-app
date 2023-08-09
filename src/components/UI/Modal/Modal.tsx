@@ -6,7 +6,7 @@ import { resetData } from '../../../store/modal/slice';
 import { RootState } from '../../../store/store';
 
 const Modal = () => {
-  const modalData = useSelector((state: RootState) => state.modalSlice.modalData );
+  const modalData = useSelector((state: RootState) => state.modal.modalData );
   const dispatch = useDispatch();
 
   const close = useCallback((event) => {

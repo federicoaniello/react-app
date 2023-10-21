@@ -1,18 +1,18 @@
-import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Modal.module.scss';
 import closeImg from '/svg/close.svg';
 import { resetData } from '../../../store/modal/slice';
 import { RootState } from '../../../store/store';
+import { MouseEvent } from 'react';
 
 const Modal = () => {
   const modalData = useSelector((state: RootState) => state.modal.modalData );
   const dispatch = useDispatch();
 
-  const close = useCallback((event) => {
+  const close = (event:MouseEvent<HTMLDivElement>) => {
     if (event?.target?.closest('.modal-body')) return;
     dispatch(resetData());
-  }, [dispatch]);
+  };
 
   const renderContent = () => {
     if (!modalData) return null;

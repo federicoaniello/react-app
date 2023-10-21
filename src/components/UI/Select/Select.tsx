@@ -1,19 +1,15 @@
-import React from "react";
-import { forwardRef, ChangeEvent, ForwardRefRenderFunction } from "react";
-
+import { forwardRef, ChangeEvent } from "react";
+import utilities from "../../../hooks/utilities";
 interface SelectProps {
   colors: string[];
   selectedColor: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
-  { colors, onChange, selectedColor },
-  ref
-) => {
-  const toCapitalized = (string: string) => {
-    return `${string[0].toUpperCase()}${string.substring(1).toLowerCase()}`;
-  };
+const { toCapitalized } = utilities();
+
+const Select = forwardRef<HTMLSelectElement, SelectProps>((  { colors, onChange, selectedColor }, ref ) => {
+
 
   return (
     <select ref={ref} value={selectedColor} onChange={onChange}>
@@ -25,6 +21,6 @@ const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
       ))}
     </select>
   );
-};
+});
 
-export default forwardRef(Select);
+export default Select;

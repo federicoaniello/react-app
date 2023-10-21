@@ -10,46 +10,39 @@ const Modal = () => {
   const dispatch = useDispatch();
 
   const close = (event:MouseEvent<HTMLDivElement>) => {
-    if (event?.target?.closest('.modal-body')) return;
     dispatch(resetData());
   };
 
-  const renderContent = () => {
-    if (!modalData) return null;
-
-    const { name, description, 'image-preview': imagePreview, link, price, discount, 'old-price': oldPrice } = modalData;
-
-    return (
-      <div className={styles['modal-backdrop']} onClick={close}>
-        <div className={styles.modal}>
-          <header id="modalheader" className={styles.modalHeader}>
-            <img src={closeImg} alt="Close" />
-          </header>
-          <section className={styles["modal-body"]} id="modalDescription" onClick={close}>
-            <div className={styles.img}>
-              <img src={imagePreview} alt={name} />
-            </div>
-            <div className={styles.info}>
-              <h1>{name}</h1>
-              <h3 className="mb-5">{description}</h3>
-              <div className={styles.prices}>
-                {oldPrice && <span className={styles['old-price']}>{oldPrice}</span>}
-                <div className="mb-5 d-flex justify-content-start align-items-center">
-                  <span className={styles["actual-price"]}>{price}</span>
-                  {discount && <span className={styles.discount}>{discount}</span>}
-                </div>
-              </div>
-              <a className={styles.anchor} href={link} target="_blank" rel="noopener noreferrer">
-                <button className={styles["add-to-cart"]}>Add To Cart</button>
-              </a>
-            </div>
-          </section>
-        </div>
+  return (<>
+  {modalData && <>
+    <div className={styles['modal-backdrop']} onClick={close}></div>
+  <div className={styles.modal}>
+    <header id="modalheader" className={styles.modalHeader} onClick={close}>
+      <img src={closeImg} alt="Close" />
+    </header>
+    <section className={styles["modal-body"]} id="modalDescription">
+      <div className={styles.img}>
+        <img src={modalData['image-preview']} alt={modalData.name} />
       </div>
-    );
-  };
+      <div className={styles.info}>
+        <h1>{modalData.name}</h1>
+        <h3 className="mb-5">{modalData.description}</h3>
+        <div className={styles.prices}>
+          {modalData['old-price'] && <span className={styles['old-price']}>{modalData['old-price']}</span>}
+          <div className="mb-5 d-flex justify-content-start align-items-center">
+            <span className={styles["actual-price"]}>{modalData.price}</span>
+            {modalData.discount && <span className={styles.discount}>{modalData.discount}</span>}
+          </div>
+        </div>
+        <a className={styles.anchor} href={modalData.link} target="_blank" rel="noopener noreferrer">
+          <button className={styles["add-to-cart"]}>Add To Cart</button>
+        </a>
+      </div>
+    </section>
+  </div></>
 
-  return <>{renderContent()}</>;
+  }
+  </>);
 };
 
 export default Modal;

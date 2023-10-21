@@ -1,6 +1,6 @@
   @use "src/styles/variables" as vars;
 
- .anchor {
+  .anchor {
     text-decoration: none;
   }
 
@@ -34,7 +34,7 @@
   }
 
   .modal {
-    position: relative;
+    position: fixed;
     background: #ffffff;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
@@ -44,6 +44,10 @@
     width: calc(100% - 30vw);
     height: calc(50vh + 30px);
     overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
 
     @media (max-width: 767px) {
       height: 100vh;
@@ -129,13 +133,12 @@
         height: 50%;
       }
 
-      > img {
+      >img {
         object-fit: contain;
         height: 100%;
         width: 100%;
 
-        @media (max-width: 767px) {
-        }
+        @media (max-width: 767px) {}
       }
     }
   }

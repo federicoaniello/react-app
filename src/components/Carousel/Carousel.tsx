@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import { register } from "swiper/element/bundle";
 import { Navigation } from "swiper";
 import { swiper_data } from "./data";
-import React from "react";
 
 register();
 

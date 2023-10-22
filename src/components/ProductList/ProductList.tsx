@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Product from "../Product/Product";
 import styles from "./ProductList.module.scss";
-import React from "react";
 import { IProduct } from "../../model/IProduct";
 
 
@@ -26,7 +25,7 @@ const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element
   }, [products, truncateValue, selectedColor]);
 
   return (
-    products && (
+    products && products.length > 0 ? (
       <>
         <section className={styles.grid}>
           {filteredProducts.map((item, index) => (
@@ -34,7 +33,7 @@ const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element
           ))}
           {filteredProducts.length === 0 && <div style={{ paddingBottom: "500px" }}></div>}
         </section>
-        {(moreToShow || filteredProducts.length > 4) && (
+        {(moreToShow && filteredProducts.length > 4) && (
         <div className="text-center mb-5">
           <button
             disabled={!moreToShow}
@@ -51,7 +50,7 @@ const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element
         </div>
       )}
       </>
-    )
+    ) : <></>
   );
 };
 

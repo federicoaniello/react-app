@@ -4,7 +4,6 @@ import { links_data } from "../Carousel/data";
 import styles from "./Catalogue.module.scss";
 import Select from "../UI/Select/Select";
 import { ILinksData } from "../../model/ILinksData";
-import React from "react";
 
 
 const Catalogue = (): JSX.Element => {

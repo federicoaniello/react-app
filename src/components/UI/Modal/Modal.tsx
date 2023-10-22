@@ -1,15 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux';
 import styles from './Modal.module.scss';
 import closeImg from '/svg/close.svg';
 import { resetData } from '../../../store/modal/slice';
-import { RootState } from '../../../store/store';
-import { MouseEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 const Modal = () => {
-  const modalData = useSelector((state: RootState) => state.modal.modalData );
-  const dispatch = useDispatch();
+  const modalData = useAppSelector(({modal}) => modal.modalData);
+  const dispatch = useAppDispatch();
 
-  const close = (event:MouseEvent<HTMLDivElement>) => {
+  const close = () => {
     dispatch(resetData());
   };
 

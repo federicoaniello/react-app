@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductList from "../ProductList/ProductList";
 import utilities from "../../hooks/utilities";
-import React from "react";
 import { IProduct } from "../../model/IProduct";
 
 

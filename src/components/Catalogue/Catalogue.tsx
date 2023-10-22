@@ -1,26 +1,24 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useState, useCallback, ChangeEvent } from "react";
 import DownloadList from "../DownloadList/DownloadList";
 import { links_data } from "../Carousel/data";
 import styles from "./Catalogue.module.scss";
 import Select from "../UI/Select/Select";
 import { ILinksData } from "../../model/ILinksData";
 
+const getDefaultApi = (): string => {
+  const API = links_data.find((tab) => tab.isDefault === true)?.api;
+  return API as string;
+};
 
 const Catalogue = (): JSX.Element => {
-  const [api, setApi] = useState<string>("");
+  const [api, setApi] = useState<string>(getDefaultApi());
   const [colors, setColors] = useState<string[]>([]);
   const [selectedColor, setSelectedColor] = useState<string>("");
 
-  const handleListChange = (api: string) => {
+
+  const handleListChange = useCallback((api: string) => {
     setApi(api);
     setSelectedColor("");
-  };
-
-  useEffect(() => {
-    const API = links_data.find((tab) => tab.isDefault === true)?.api;
-    if (API) {
-      setApi(API);
-    }
   }, []);
 
   return (

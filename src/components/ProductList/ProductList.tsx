@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Product from "../Product/Product";
 import styles from "./ProductList.module.scss";
 import { IProduct } from "../../model/IProduct";
@@ -13,22 +13,26 @@ interface ProductListProps {
 const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element => {
   const [truncateValue, setTruncateValue] = useState(4);
 
-  const moreToShow = products?.length > truncateValue;
-  const showMore = () => setTruncateValue((prevValue) => prevValue + 4);
-
+  const showMore = () => setTruncateValue(prevValue => prevValue + 4);
+  
   const filteredProducts = useMemo(() => {
-    let filtered = products;
-    if (selectedColor !== null && selectedColor !== "") {
-      filtered = filtered.filter((el) => el?.color?.includes(selectedColor));
+    if (selectedColor === "") {
+      return products;
     }
-    return filtered.slice(0, truncateValue);
-  }, [products, truncateValue, selectedColor]);
+    return products.filter((product) => product.color?.includes(selectedColor));
+  }, [products, selectedColor]);
+
+  const moreToShow = filteredProducts?.length >= truncateValue;
+  const hasReachedEnd = truncateValue >= filteredProducts?.length;
+  useEffect(() => {
+    setTruncateValue(4);
+  }, [selectedColor,products]);
 
   return (
     products && products.length > 0 ? (
       <>
         <section className={styles.grid}>
-          {filteredProducts.map((item, index) => (
+          {filteredProducts.length > 0 && filteredProducts.slice(0, truncateValue).map((item, index) => (
             <Product key={index} item={item} />
           ))}
           {filteredProducts.length === 0 && <div style={{ paddingBottom: "500px" }}></div>}
@@ -36,13 +40,13 @@ const ProductList = ({ products, selectedColor }: ProductListProps): JSX.Element
         {(moreToShow && filteredProducts.length > 4) && (
         <div className="text-center mb-5">
           <button
-            disabled={!moreToShow}
+            disabled={hasReachedEnd}
             className={`mt-5 ${styles["show-more"]} d-flex align-items-center justify-content-between`}
             onClick={showMore}
           >
-            {moreToShow ? "View more" : "No more products to see"}
+            {!hasReachedEnd ? "View more" : "No more products"}
             <img
-              className={`${styles.rotate} ${!moreToShow ? styles.to180 : ""}`}
+              className={`${styles.rotate} ${hasReachedEnd ? styles.to180 : ""}`}
               src="/svg/right-arrow.svg"
               alt="Right arrow"
             />

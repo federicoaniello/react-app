@@ -10,9 +10,10 @@ type Props = {
   setColors: (colors: string[]) => void;
 };
 
+const { download, colorUtility } = utilities();
+
 const DownloadList = ({ api, selectedColor, setColors }: Props): JSX.Element => {
   const [jsonData, setJsonData] = useState<IProduct[] | null>(null);
-  const { download, colorUtility } = utilities();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +31,7 @@ const DownloadList = ({ api, selectedColor, setColors }: Props): JSX.Element => 
     fetchData();
 
     return () => setJsonData(null);
-  }, [api]);
+  }, [api, setColors]);
 
   return (jsonData && <ProductList products={jsonData} selectedColor={selectedColor} />)!;
 };
